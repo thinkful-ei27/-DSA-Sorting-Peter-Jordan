@@ -1,1 +1,1 @@
-# -DSA-Sorting-Peter-Jordan
+# DSA-Sorting-Peter-Jordan
