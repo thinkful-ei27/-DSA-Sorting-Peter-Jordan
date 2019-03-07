@@ -1,7 +1,7 @@
 'use strict';
 
 const data = [
-  89, 30, 25, 32, 72,]
+  89, 30, 25, 32, 72];
 // 70, 51, 42, 25, 24
 // 53, 55, 78, 50, 13, 40, 48, 32, 26, 2,
 // 14, 33, 45, 72, 56, 44, 21, 88, 27, 68,
@@ -13,32 +13,53 @@ const data = [
 // 46, 27, 22, 87, 49, 83, 6, 39, 42, 51,
 // 54, 84, 34, 53, 78, 40, 14, 5];
 
-function qSort(array) {
-  let pivot = array[Math.floor((array.length - 1) / 2)];
-  let j = array.length - 1;
-  let i = 0;
-  while (i < j) {
-    console.log('i equals', array[i]);
-    console.log('j equals', array[j]);
-    console.log('pivot equals', array[pivot]);
-    console.log(array);
-    if (array[i] < array[pivot]) {
-      i++;
-    }
-    if (array[j] > array[pivot]) {
-      j--;
-    }
-    if (array[i] >= array[pivot] && array[j] <= array[pivot]) {
-      console.log('i and j swap ran');
+
+// function qSort(arr, start = 0 , end = arr.length) {
+//   if (start >= end) {
+//     return arr;
+//   }
+//   const middle = partition(arr, start, end);
+//   arr = qSort(arr, start, middle);
+//   arr = qSort(arr, middle + 1, end);
+//   return arr;
+// }
+
+// function partition(arr, start, end) {
+//   let pivot = arr[end - 1];
+//   let j = start;
+//   let i = start - 1;
+//   while (j <= (end - 1)) {
+//     if (arr[j] < pivot) {
+//       i++;
+//       swap(arr, i, j);
+//     }
+//     j++;
+//   }
+//   swap(arr, end - 1, j);
+//   return j;
+// }
+
+function quickSort(array, start=0, end=array.length) {
+  if (start >= end) {
+    return array;
+  }
+  const middle = partition(array, start, end);
+  array = quickSort(array, start, middle);
+  array = quickSort(array, middle + 1, end);
+  return array;
+}
+
+function partition(array, start, end) {
+  const pivot = array[end - 1];
+  let j = start;
+  for (let i=start; i<end - 1; i++) {
+    if (array[i] <= pivot) {
       swap(array, i, j);
-    }
-    if (array[i] > array[j]) {
-      console.log('pivot swap ran');
-      swap(array, i, pivot);
+      j++;
     }
   }
-  return qSort(array);
-
+  swap(array, end-1, j);
+  return j;
 }
 
 function swap(array, i, j) {
@@ -47,4 +68,4 @@ function swap(array, i, j) {
   array[j] = temp;
 }
 
-qSort(data);
+console.log(quickSort(data));
